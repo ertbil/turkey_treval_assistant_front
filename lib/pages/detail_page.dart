@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trevalapp2/services/place_data_service.dart';
 
 import '../constants/strings/images.dart';
-import '../constants/strings/strings.dart';
 import '../models/place.dart';
 
 class DetailPage extends ConsumerStatefulWidget {
