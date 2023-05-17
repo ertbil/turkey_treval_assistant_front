@@ -44,12 +44,15 @@ class PlaceCard extends StatelessWidget {
                 const Divider(),
                 Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: SizedBox(
-                      height: MediaQuery.of(context).size.height*0.4,
-                      child: Image.network(place.imageURL?? Images.errorImage, errorBuilder: (context, error, stackTrace) {
-                        return Image.network(Images.errorImage);
-                      },
-                      fit: BoxFit.cover,
+                    child: Hero(
+                      tag: "image${place.id}",
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height*0.4,
+                        child: Image.network(place.imageURL?? Images.errorImage, errorBuilder: (context, error, stackTrace) {
+                          return Image.network(Images.errorImage);
+                        },
+                        fit: BoxFit.cover,
+                        ),
                       ),
                     )
                 ),
@@ -59,16 +62,13 @@ class PlaceCard extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Hero(
-                          tag: "name${place.id}",
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              place.name,
-                              style: const TextStyle(
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.bold,
-                              ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            place.name,
+                            style: const TextStyle(
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),

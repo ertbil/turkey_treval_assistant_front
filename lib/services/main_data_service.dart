@@ -1,14 +1,16 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
+
 import 'package:http/http.dart' as http;
 
 import '../constants/strings/paths.dart';
 
 class MainDataService {
-
   static Future<dynamic> _getResponse(http.Response response) async {
     if (response.statusCode == 200) {
-      final jsonResponse = jsonDecode(response.body);
+      //final jsonResponse = jsonDecode(response.body);
+      final utf8Response = utf8.decode(response.bodyBytes);
+      final jsonResponse = json.decode(utf8Response);
+
       if (jsonResponse['success']) {
         return jsonResponse['data'];
       } else {

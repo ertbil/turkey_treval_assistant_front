@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:trevalapp2/pages/detail_page.dart';
@@ -6,11 +8,12 @@ import 'package:trevalapp2/pages/main_page.dart';
 import 'package:trevalapp2/pages/register_page.dart';
 
 void main() {
-  runApp(const ProviderScope(child: MyApp()));
+  HttpOverrides.global = MyHttpOverrides();
+  runApp(const ProviderScope(child: TurkeyTrevalAssistant()));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class TurkeyTrevalAssistant extends StatelessWidget {
+  const TurkeyTrevalAssistant({Key? key}) : super(key: key);
 
   Route? onGenerate(settings) {
     final arguments = settings.arguments;
@@ -43,5 +46,13 @@ class MyApp extends StatelessWidget {
 
 
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }
